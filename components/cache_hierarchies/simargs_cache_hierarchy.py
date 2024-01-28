@@ -8,7 +8,7 @@ from typing import Dict, Any
 
 from m5.objects import (
     StridePrefetcher, SignaturePathPrefetcher,
-    LRURP, TreePLRURP
+    LRURP, TreePLRURP, NULL
 )
 import util.simarglib as simarglib
 

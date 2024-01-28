@@ -6,7 +6,10 @@ will create caches matched roughly to an Intel Skylake.
 For all cache options, see src/mem/cache/Cache.py class BaseCache
 """
 from typing import Type
-from m5.objects import Cache, Clusivity, BasePrefetcher, StridePrefetcher, BaseReplacementPolicy, LRURP
+from m5.objects import (
+    Cache, Clusivity, BasePrefetcher, StridePrefetcher, 
+    BaseReplacementPolicy, LRURP, NULL
+)
 
 """
 L1 data cache

@@ -26,8 +26,11 @@ class L1DCache(Cache):
         mshrs: int = FIXME,
         tgts_per_mshr: int = 16,
         write_buffers: int = 64, # Matched to ChampSim default
-        PrefetcherCls: Type[BasePrefetcher] = NULL,
-        ReplacementPolicyCls: Type[BaseReplacementPolicy] = LRURP,
+        # Hint: To represent no prefetcher, you can use the value NULL.
+        #
+        # FIXME TODO: Set these appropriately.
+        PrefetcherCls: Type[BasePrefetcher] = FIXME,
+        ReplacementPolicyCls: Type[BaseReplacementPolicy] = FIXME,
         # The below should be false if downstream cache is mostly inclusive or if there is no
         # downstream cache, true if downstream cache is mostly exclusive
         writeback_clean: bool = False,
@@ -70,8 +73,9 @@ class L1ICache(Cache):
         mshrs: int = FIXME,
         tgts_per_mshr: int = 16,
         write_buffers: int = 8,
-        PrefetcherCls: Type[BasePrefetcher] = NULL,
-        ReplacementPolicyCls: Type[BaseReplacementPolicy] = LRURP,
+        # FIXME TODO: Set these appropriately.
+        PrefetcherCls: Type[BasePrefetcher] = FIXME,
+        ReplacementPolicyCls: Type[BaseReplacementPolicy] = FIXME,
         # The below should be false if downstream cache is mostly inclusive or if there is no
         # downstream cache, true if downstream cache is mostly exclusive
         writeback_clean: bool = False,
@@ -114,8 +118,9 @@ class L2Cache(Cache):
         mshrs: int = FIXME,
         tgts_per_mshr: int = 16,
         write_buffers: int = 32, # Matched to ChampSim default
-        PrefetcherCls: Type[BasePrefetcher] = NULL,
-        ReplacementPolicyCls: Type[BaseReplacementPolicy] = LRURP,
+        # FIXME TODO: Set these appropriately.
+        PrefetcherCls: Type[BasePrefetcher] = FIXME,
+        ReplacementPolicyCls: Type[BaseReplacementPolicy] = FIXME,
         # The below should be false if downstream cache is mostly inclusive or if there is no
         # downstream cache, true if downstream cache is mostly exclusive
         writeback_clean: bool = False,
@@ -158,8 +163,9 @@ class LLCache(Cache):
         mshrs: int = FIXME,
         tgts_per_mshr: int = 32,
         write_buffers: int = 128, # Matched to ChampSim default for 4 cores
-        PrefetcherCls: Type[BasePrefetcher] = NULL,
-        ReplacementPolicyCls: Type[BaseReplacementPolicy] = LRURP,
+        # FIXME TODO: Set these appropriately.
+        PrefetcherCls: Type[BasePrefetcher] = FIXME,
+        ReplacementPolicyCls: Type[BaseReplacementPolicy] = FIXME,
         # The below should be false if downstream cache is mostly inclusive or if there is no
         # downstream cache, true if downstream cache is mostly exclusive
         writeback_clean: bool = False,

@@ -166,7 +166,7 @@ class LTAGE_BP(LTAGE_TAGE):
     logUResetPeriod = 19
 
 class SkylakeTAGE(LTAGE):
-    btb = SimpleBTB(numEntries=512)
+    btb = SimpleBTB(numEntries=512, tagBits=19)
     ras = ReturnAddrStack(numEntries=32)
     indirectBranchPred = IndirectPred()
     tage = LTAGE_BP()
@@ -175,14 +175,14 @@ class SkylakeTAGE(LTAGE):
 
 # two other branch predictor choices for now, neither configured beyond defaults
 class SkylakePerceptron(MultiperspectivePerceptron64KB):
-    btb = SimpleBTB(numEntries=512)
+    btb = SimpleBTB(numEntries=512, tagBits=19)
     ras = ReturnAddrStack(numEntries=32)
     indirectBranchPred = IndirectPred()
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
 
 class SkylakeTournament(TournamentBP):
-    btb = SimpleBTB(numEntries=512)
+    btb = SimpleBTB(numEntries=512, tagBits=19)
     ras = ReturnAddrStack(numEntries=32)
     indirectBranchPred = IndirectPred()
     def __init__(self, **kwargs) -> None:

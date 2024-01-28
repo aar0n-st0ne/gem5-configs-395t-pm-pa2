@@ -1,7 +1,7 @@
 """
 Parent classes for FS and SE workloads
 """
-from gem5.resources.workload import CustomWorkload
+from gem5.resources.resource import WorkloadResource
 import util.simarglib as simarglib
 
 ###
@@ -10,7 +10,7 @@ parser = simarglib.add_parser("Workload")
 parser.add_argument("--start_from", type=str, help="Start simulation from a checkpoint in dir START_FROM")
 ###
 
-class CustomSEWorkload(CustomWorkload):
+class CustomSEWorkload(WorkloadResource):
     """
     Legal parameters for SE workloads: (see components/boards/se_binary_workload.py)
       binary: AbstractResource  <-- REQUIRED
@@ -27,7 +27,7 @@ class CustomSEWorkload(CustomWorkload):
             parameters = kwargs
         )
 
-class CustomFSWorkload(CustomWorkload):
+class CustomFSWorkload(WorkloadResource):
     """
     Legal parameters for FS workloads: (see components/boards/kernel_disk_workload.py)
       kernel: AbstractResource  <-- REQUIRED

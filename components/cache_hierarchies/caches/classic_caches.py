@@ -27,8 +27,6 @@ class L1DCache(Cache):
         tgts_per_mshr: int = 16,
         write_buffers: int = 64, # Matched to ChampSim default
         PrefetcherCls: Type[BasePrefetcher] = NULL,
-        prefetch_on_access: bool = False, # Notify prefetcher on every access, not just hits
-        prefetch_on_pf_hit: bool = False, # Notify prefetcher of hits to prefetched lines
         ReplacementPolicyCls: Type[BaseReplacementPolicy] = LRURP,
         # The below should be false if downstream cache is mostly inclusive or if there is no
         # downstream cache, true if downstream cache is mostly exclusive
@@ -51,8 +49,6 @@ class L1DCache(Cache):
         self.tgts_per_mshr = tgts_per_mshr
         self.write_buffers = write_buffers
         self.prefetcher = PrefetcherCls()
-        self.prefetch_on_access = prefetch_on_access
-        self.prefetch_on_pf_hit = prefetch_on_pf_hit
         self.replacement_policy = ReplacementPolicyCls()
         self.writeback_clean = writeback_clean
         self.clusivity = clusivity
@@ -75,8 +71,6 @@ class L1ICache(Cache):
         tgts_per_mshr: int = 16,
         write_buffers: int = 8,
         PrefetcherCls: Type[BasePrefetcher] = NULL,
-        prefetch_on_access: bool = False, # Notify prefetcher on every access, not just hits
-        prefetch_on_pf_hit: bool = False, # Notify prefetcher of hits to prefetched lines
         ReplacementPolicyCls: Type[BaseReplacementPolicy] = LRURP,
         # The below should be false if downstream cache is mostly inclusive or if there is no
         # downstream cache, true if downstream cache is mostly exclusive
@@ -99,8 +93,6 @@ class L1ICache(Cache):
         self.tgts_per_mshr = tgts_per_mshr
         self.write_buffers = write_buffers
         self.prefetcher = PrefetcherCls()
-        self.prefetch_on_access = prefetch_on_access
-        self.prefetch_on_pf_hit = prefetch_on_pf_hit
         self.replacement_policy = ReplacementPolicyCls()
         self.writeback_clean = writeback_clean
         self.clusivity = clusivity
@@ -123,8 +115,6 @@ class L2Cache(Cache):
         tgts_per_mshr: int = 16,
         write_buffers: int = 32, # Matched to ChampSim default
         PrefetcherCls: Type[BasePrefetcher] = NULL,
-        prefetch_on_access: bool = False, # Notify prefetcher on every access, not just hits
-        prefetch_on_pf_hit: bool = False, # Notify prefetcher of hits to prefetched lines
         ReplacementPolicyCls: Type[BaseReplacementPolicy] = LRURP,
         # The below should be false if downstream cache is mostly inclusive or if there is no
         # downstream cache, true if downstream cache is mostly exclusive
@@ -147,8 +137,6 @@ class L2Cache(Cache):
         self.tgts_per_mshr = tgts_per_mshr
         self.write_buffers = write_buffers
         self.prefetcher = PrefetcherCls()
-        self.prefetch_on_access = prefetch_on_access
-        self.prefetch_on_pf_hit = prefetch_on_pf_hit
         self.replacement_policy = ReplacementPolicyCls()
         self.writeback_clean = writeback_clean
         self.clusivity = clusivity
@@ -171,8 +159,6 @@ class LLCache(Cache):
         tgts_per_mshr: int = 32,
         write_buffers: int = 128, # Matched to ChampSim default for 4 cores
         PrefetcherCls: Type[BasePrefetcher] = NULL,
-        prefetch_on_access: bool = False, # Notify prefetcher on every access, not just hits
-        prefetch_on_pf_hit: bool = False, # Notify prefetcher of hits to prefetched lines
         ReplacementPolicyCls: Type[BaseReplacementPolicy] = LRURP,
         # The below should be false if downstream cache is mostly inclusive or if there is no
         # downstream cache, true if downstream cache is mostly exclusive
@@ -194,8 +180,6 @@ class LLCache(Cache):
         self.tgts_per_mshr = tgts_per_mshr
         self.write_buffers = write_buffers
         self.prefetcher = PrefetcherCls()
-        self.prefetch_on_access = prefetch_on_access
-        self.prefetch_on_pf_hit = prefetch_on_pf_hit
         self.replacement_policy = ReplacementPolicyCls()
         self.writeback_clean = writeback_clean
         self.clusivity = clusivity

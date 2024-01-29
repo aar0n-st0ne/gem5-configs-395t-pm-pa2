@@ -18,22 +18,22 @@ parser = simarglib.add_parser("Cache Hierarchy")
 
 parser.add_argument("--l1d_size", type=str, help="L1 data size")
 parser.add_argument("--l1d_assoc", type=int, help="L1 data associativity")
-parser.add_argument("--l1d_pref", type=str, choices=["stride", "spp"], help="L1 data prefetcher")
+parser.add_argument("--l1d_pref", type=str, choices=["stride", "spp", "no"], help="L1 data prefetcher")
 parser.add_argument("--l1d_repl", type=str, choices=["lru", "plru"], help="L1 data replacement policy")
 
 parser.add_argument("--l1i_size", type=str, help="L1 inst size")
 parser.add_argument("--l1i_assoc", type=int, help="L1 inst associativity")
-parser.add_argument("--l1i_pref", type=str, choices=["stride", "spp"], help="L1 inst prefetcher")
+parser.add_argument("--l1i_pref", type=str, choices=["stride", "spp", "no"], help="L1 inst prefetcher")
 parser.add_argument("--l1i_repl", type=str, choices=["lru", "plru"], help="L1 inst replacement policy")
 
 parser.add_argument("--l2_size", type=str, help="L2 size")
 parser.add_argument("--l2_assoc", type=int, help="L2 associativity")
-parser.add_argument("--l2_pref", type=str, choices=["stride", "spp"], help="L2 prefetcher")
+parser.add_argument("--l2_pref", type=str, choices=["stride", "spp", "no"], help="L2 prefetcher")
 parser.add_argument("--l2_repl", type=str, choices=["lru", "plru"], help="L2 replacement policy")
 
 parser.add_argument("--llc_size", type=str, help="LLC size")
 parser.add_argument("--llc_assoc", type=int, help="LLC associativity")
-parser.add_argument("--llc_pref", type=str, choices=["stride", "spp"], help="LLC prefetcher")
+parser.add_argument("--llc_pref", type=str, choices=["stride", "spp", "no"], help="LLC prefetcher")
 parser.add_argument("--llc_repl", type=str, choices=["lru", "plru"], help="LLC replacement policy")
 ###
 
@@ -50,7 +50,7 @@ def get_l1d_params() -> Dict[str, Any]:
         params["PrefetcherCls"] = StridePrefetcher
     elif (simarglib.get("l1d_pref") == "spp"):
         params["PrefetcherCls"] = SignaturePathPrefetcher
-    else:
+    elif (simarglib.get("l1d_pref") == "no"):
         params["PrefetcherCls"] = NULL
     
     if (simarglib.get("l1d_repl") == "lru"):
@@ -73,7 +73,7 @@ def get_l1i_params() -> Dict[str, Any]:
         params["PrefetcherCls"] = StridePrefetcher
     elif (simarglib.get("l1i_pref") == "spp"):
         params["PrefetcherCls"] = SignaturePathPrefetcher
-    else:
+    elif (simarglib.get("l1i_pref") == "no"):
         params["PrefetcherCls"] = NULL
     
     if (simarglib.get("l1i_repl") == "lru"):
@@ -96,7 +96,7 @@ def get_l2_params() -> Dict[str, Any]:
         params["PrefetcherCls"] = StridePrefetcher
     elif (simarglib.get("l2_pref") == "spp"):
         params["PrefetcherCls"] = SignaturePathPrefetcher
-    else:
+    elif (simarglib.get("l2_pref") == "no"):
         params["PrefetcherCls"] = NULL
     
     if (simarglib.get("l2_repl") == "lru"):
@@ -119,7 +119,7 @@ def get_llc_params() -> Dict[str, Any]:
         params["PrefetcherCls"] = StridePrefetcher
     elif (simarglib.get("llc_pref") == "spp"):
         params["PrefetcherCls"] = SignaturePathPrefetcher
-    else:
+    elif (simarglib.get("llc_pref") == "no"):
         params["PrefetcherCls"] = NULL
     
     if (simarglib.get("llc_repl") == "lru"):

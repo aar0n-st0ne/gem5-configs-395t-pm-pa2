@@ -28,9 +28,9 @@ simarglib.parse()
 requires(
     isa_required = ISA.X86
 )
+
+# KVM start core, O3 switch core recommended
 processor = CustomX86SwitchableProcessor(
-    starting_core_type = CPUTypes.KVM,
-    switch_core_type = CPUTypes.O3,
     SwitchCPUCls = SkylakeCPU
 )
 

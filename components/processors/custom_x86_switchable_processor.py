@@ -17,7 +17,7 @@ from gem5.isas import ISA
 from gem5.utils.override import *
 
 from components.processors.custom_x86_core import CustomX86Core
-import components.processors.simargs_processor as simargs
+import components.processors.simargs_switchable_processor as simargs
 
 class CustomX86SwitchableProcessor(SwitchableProcessor):
     """
@@ -29,8 +29,6 @@ class CustomX86SwitchableProcessor(SwitchableProcessor):
 
     def __init__(
         self,
-        starting_core_type: CPUTypes,
-        switch_core_type: CPUTypes,
         StartingCPUCls: Type[BaseCPU] = None,
         SwitchCPUCls: Type[BaseCPU] = None
     ) -> None:
@@ -41,8 +39,11 @@ class CustomX86SwitchableProcessor(SwitchableProcessor):
         :param switch_core_types: The CPU type for each core, to be switched
         to..
         """
-        proc_params = simargs.get_processor_params()
+        proc_params = simargs.get_switchable_processor_params()
         num_cores = proc_params["cores"]
+        starting_core_type = proc_params["StartCoreCls"]
+        switch_core_type = proc_params["SwitchCoreCls"]
+
         if (not num_cores) or (num_cores <= 0):
             raise AssertionError("Number of cores must be a positive integer!")
 
@@ -56,7 +57,7 @@ class CustomX86SwitchableProcessor(SwitchableProcessor):
             self._start_key: [
                 CustomX86Core(
                     core_id = i,
-                    cpu_type = starting_core_type,
+                    core_type = starting_core_type,
                     CPUCls = StartingCPUCls
                 )
                 for i in range(num_cores)
@@ -64,7 +65,7 @@ class CustomX86SwitchableProcessor(SwitchableProcessor):
             self._switch_key: [
                 CustomX86Core(
                     core_id = i, 
-                    cpu_type = switch_core_type,
+                    core_type = switch_core_type,
                     CPUCls = SwitchCPUCls
                 )
                 for i in range(num_cores)

@@ -27,9 +27,9 @@ simarglib.parse()
 requires(
     isa_required = ISA.X86
 )
-processor = CustomX86Processor(
-    cpu_type = CPUTypes.ATOMIC
-)
+
+# Atomic core type recommended
+processor = CustomX86Processor()
 
 # Create a cache hierarchy (none for checkpointing)
 cache_hierarchy = NoCache()

@@ -28,10 +28,9 @@ simarglib.parse()
 requires(
     isa_required = ISA.X86
 )
-processor = CustomX86SwitchableProcessor(
-    starting_core_type = CPUTypes.KVM,
-    switch_core_type = CPUTypes.TIMING
-)
+
+# kvm start core, timing switch core recommended
+processor = CustomX86SwitchableProcessor()
 
 # Create a cache hierarchy
 cache_hierarchy = ThreeLevelClassicHierarchy()

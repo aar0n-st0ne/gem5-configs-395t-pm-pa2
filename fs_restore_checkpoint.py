@@ -28,8 +28,9 @@ simarglib.parse()
 requires(
     isa_required = ISA.X86
 )
+
+# O3 core type recommended
 processor = CustomX86Processor(
-    cpu_type = CPUTypes.O3,
     CPUCls = SkylakeCPU
 )
 

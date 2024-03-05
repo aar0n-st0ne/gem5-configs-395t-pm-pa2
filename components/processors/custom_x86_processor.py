@@ -19,11 +19,11 @@ import components.processors.simargs_processor as simargs
 class CustomX86Processor(BaseCPUProcessor):
     def __init__(
         self, 
-        cpu_type: CPUTypes,
         CPUCls: Type[BaseCPU] = None
     ) -> None:
         proc_params = simargs.get_processor_params()
         num_cores = proc_params["cores"]
+        core_type = proc_params["CoreCls"]
         if (not num_cores) or (num_cores <= 0):
             raise AssertionError("Number of cores must be a positive integer!")
 
@@ -31,14 +31,14 @@ class CustomX86Processor(BaseCPUProcessor):
             cores = [
                 CustomX86Core(
                     core_id = i,
-                    cpu_type = cpu_type,
+                    core_type = core_type,
                     CPUCls = CPUCls
                 )
                 for i in range(num_cores)
             ]
         )
 
-        print(f"Creating X86 Processor: num_cores={num_cores}, cpu_type={cpu_type}")
+        print(f"Creating X86 Processor: num_cores={num_cores}, core_type={core_type}")
 
     # Simulator also has a schedule_max_insts() function, which just
     # loops through all the cores in self._board.get_processor().get_cores()

@@ -26,35 +26,35 @@ class CustomX86Core(SimpleCore):
     def __init__(
         self,
         core_id: int,
-        cpu_type: CPUTypes,
+        core_type: CPUTypes,
         CPUCls: Type[BaseCPU] = None
     ) -> None:
         if CPUCls is None:
-            if cpu_type == CPUTypes.ATOMIC:
+            if core_type == CPUTypes.ATOMIC:
                 CPUCls = getattr(
                     importlib.import_module("m5.objects.X86CPU"), "X86AtomicSimpleCPU"
                 )
-            elif cpu_type == CPUTypes.O3:
+            elif core_type == CPUTypes.O3:
                 CPUCls = getattr(
                     importlib.import_module("m5.objects.X86CPU"), "X86O3CPU"
                 )
-            elif cpu_type == CPUTypes.TIMING:
+            elif core_type == CPUTypes.TIMING:
                 CPUCls = getattr(
                     importlib.import_module("m5.objects.X86CPU"), "X86TimingSimpleCPU"
                 )
-            elif cpu_type == CPUTypes.KVM:
+            elif core_type == CPUTypes.KVM:
                 CPUCls = getattr(
                     # For some reason, the KVM CPU is under "m5.objects" not
                     # "m5.objects.{ISA}CPU".
                     importlib.import_module("m5.objects"), "X86KvmCPU"
                 )
-            elif cpu_type == CPUTypes.MINOR: 
+            elif core_type == CPUTypes.MINOR:
                 CPUCls = getattr( 
                     importlib.import_module("m5.objects.X86CPU"), "X86MinorCPU"
                 )
             else:
                 raise NotImplementedError(
-                    f"Unsupported CPUType '{cpu_type.name}'"
+                    f"Unsupported CPUType '{core_type.name}'"
                 )
 
         # Don't call super()'s init, we want the grandparent init (see comment at top)!
@@ -65,7 +65,7 @@ class CustomX86Core(SimpleCore):
             isa = ISA.X86
         )
 
-        self._cpu_type = cpu_type
+        self._cpu_type = core_type
 
     def cpu_simobject_factory(cls, cpu_type: CPUTypes, isa: ISA, core_id: int):
         raise NotImplementedError(

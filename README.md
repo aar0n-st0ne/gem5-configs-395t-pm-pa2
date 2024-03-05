@@ -106,9 +106,12 @@ Instantiate the processor model (including core type), cache hierarchy model, an
 requires(
     isa_required = ISA.X86
 )
+
+# Create a switchable processor
+#
+# Define start and switch core with --start_core_type
+# # and --switch_core_type runtime knobs respectively
 processor = CustomX86SwitchableProcessor(
-    starting_core_type = CPUTypes.KVM,
-    switch_core_type = CPUTypes.O3,
     SwitchCPUCls = SkylakeCPU
 )
 

@@ -34,8 +34,10 @@ parser.add_argument("--l2_repl", type=str, choices=["lru", "plru", "cs395t"], he
 
 parser.add_argument("--llc_size", type=str, help="LLC size")
 parser.add_argument("--llc_assoc", type=int, help="LLC associativity")
-parser.add_argument("--llc_pref", type=str, choices=["stride", "spp", "cs395t", "no"], help="LLC prefetcher")
+parser.add_argument("--llc_pref", type=str, default="cs395t", choices=["stride", "spp", "cs395t", "no"], help="LLC prefetcher")
 parser.add_argument("--llc_repl", type=str, choices=["lru", "plru", "cs395t"], help="LLC replacement policy")
+parser.add_argument("--nPC", type=int, default=1, help="Number of hashed PC")
+parser.add_argument("--nDelta", type=int, default=5, help="Number of Delta")
 ###
 
 def get_l1d_params() -> Dict[str, Any]:
@@ -191,7 +193,8 @@ def get_llc_params() -> Dict[str, Any]:
     elif (simarglib.get("llc_pref") == "cs395t"):
         params["PrefetcherCls"] = CS395TPrefetcher
         params["prefetcher_params"] = {
-            "size": 2048
+            "nPC": simarglib.get("nPC"),
+            "nDelta": simarglib.get("nDelta")
         }
     elif (simarglib.get("llc_pref") == "no"):
         params["PrefetcherCls"] = NULL
@@ -208,5 +211,9 @@ def get_llc_params() -> Dict[str, Any]:
         params["replacement_params"] = {
             "size": 2048
         }
+
+    #params["nPC"] = simarglib.get("nPC")
+    #params["nDelta"] = simarglib.get("nDelta")
+    
     
     return params

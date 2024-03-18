@@ -8,8 +8,8 @@ For all cache options, see src/mem/cache/Cache.py class BaseCache
 from typing import Type
 from m5.objects import (
     Cache, Clusivity,
-    BasePrefetcher, CS395TPrefetcher, StridePrefetcher, # Prefetchers
-    BaseReplacementPolicy, CS395TRP, LRURP,             # Replacement policies
+    BasePrefetcher, CS395TPrefetcher, StridePrefetcher, DCPTPrefetcher, # Prefetchers
+    BaseReplacementPolicy, CS395TRP, LRURP,                             # Replacement policies
     NULL
 )
 from util.simarglib import set_component_parameters
@@ -188,7 +188,7 @@ class LLCache(Cache):
         tgts_per_mshr: int = 32,
         write_buffers: int = 128, # Matched to ChampSim default for 4 cores
         # FIXME TODO: Set these appropriately.
-        PrefetcherCls: Type[BasePrefetcher] = NULL,
+        PrefetcherCls: Type[BasePrefetcher] = CS395TPrefetcher,
         ReplacementPolicyCls: Type[BaseReplacementPolicy] = LRURP,
         prefetcher_params: dict = {},
         replacement_params: dict = {},
@@ -199,6 +199,8 @@ class LLCache(Cache):
         # are allocated on all fills; mostly exclusive means allocate only from non-caching sources.
         # L1s should be mostly inclusive.
         clusivity: Clusivity = "mostly_incl",
+        #nDelta: int = 5,
+        #nPC: int = 1,
         **kwargs
     ) -> None:
         super().__init__(**kwargs)
@@ -215,6 +217,8 @@ class LLCache(Cache):
         self.replacement_policy = ReplacementPolicyCls()
         self.writeback_clean = writeback_clean
         self.clusivity = clusivity
+        #self.nDelta = nDelta
+        #self.nPC = nPC
         print(f"Creating LLCache object: size={self.size}, assoc={self.assoc}, "
               f"pref={type(self.prefetcher)}, repl={type(self.replacement_policy)}")
 
@@ -222,6 +226,9 @@ class LLCache(Cache):
                                  parent_name=type(self).__name__)
         set_component_parameters(self.replacement_policy, replacement_params,
                                  parent_name=type(self).__name__)
+        if(type(self.prefetcher) == CS395TPrefetcher):
+            self.prefetcher.tabObj.nPC = prefetcher_params["nPC"]
+            self.prefetcher.tabObj.nDelta = prefetcher_params["nDelta"]
 
 """ 
 Page table entry cache
